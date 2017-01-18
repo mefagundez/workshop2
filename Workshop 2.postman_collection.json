@@ -1,0 +1,124 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Workshop 2",
+		"_postman_id": "2a3c4dba-7d6c-00e0-66c1-541255013dec",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/oauth/token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"security_access_token\", jsonData.access_token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/oauth/token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "client_secret",
+							"value": "secret",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "client_id",
+							"value": "normal-app",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "scope",
+							"value": "read",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/greeting",
+			"request": {
+				"url": "http://localhost:8080/greeting",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{security_access_token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "client_secret",
+							"value": "secret",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "client_id",
+							"value": "normal-app",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
